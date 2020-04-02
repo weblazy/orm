@@ -46,7 +46,7 @@ func lowerCase(name string) string {
 
 //获取表信息
 func getTables(tableNames string) []def.Table {
-	db := db.DB("openapi")
+	db := db.DB(conf.Conf.Db.DbName)
 	var tables []def.Table
 	if tableNames == "" {
 		db.Raw("SELECT TABLE_NAME as Name,TABLE_COMMENT as Comment FROM information_schema.TABLES WHERE table_schema='" + conf.Conf.Db.DbName + "';").Find(&tables)
@@ -58,7 +58,7 @@ func getTables(tableNames string) []def.Table {
 
 //获取所有字段信息
 func getFields(tableName string) []def.Field {
-	db := db.DB("openapi")
+	db := db.DB(conf.Conf.Db.DbName)
 	var fields []def.Field
 	db.Raw("show FULL COLUMNS from " + tableName + ";").Find(&fields)
 	return fields

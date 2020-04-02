@@ -31,7 +31,7 @@ func (m *{{.StructName}}) Update(id int64, data *{{.StructName}}, dbs ...*gormx.
 		db = gorm.GetORMByName("{{.DataBase}}")
 	}
 	where := "id = ?"
-	return db.Where(where, id).Update(data).Error
+	return db.Model(&{{.StructName}}{}).Where(where, id).Update(data).Error
 }`
 
 	GetById = `/**
